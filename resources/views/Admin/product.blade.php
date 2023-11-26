@@ -39,7 +39,7 @@
                                     @if($product1->quantity > 10)
                                         <div class="position-absolute top-0 end-0 m-3 product-discount"><span class=""
                                                 style="color:black"> Còn Hàng</span> </div>
-                                    @elseif ($product1->quantity > 0 && $product->quantity < 10)
+                                    @elseif ($product1->quantity > 0 && $product1->quantity < 10)
                                         <div class="position-absolute top-0 end-0 m-3 product-discount"><span class=""
                                                 style="color:yellow"> sắp hết Hàng</span> </div>
                                     @elseif($product1->quantity == 0)
@@ -85,9 +85,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     @endforeach
-                    
+
                 </div>
                 {{ $product->links('admin.vendor.pagination') }}
                 <!--end row-->
@@ -96,7 +96,7 @@
         </div>
         <!--end page wrapper -->
         <!--start overlay-->
-        
+
     <!-- popup -->
 
     <div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
@@ -162,10 +162,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                
+
                 </div>
                 <div class="modal-footer">
-                    
+
                 </div>
             </div>
         </div>
@@ -236,7 +236,7 @@
                 `;
 
                 // Hiển thị popup
-              
+
             });
         });
         // Lấy tất cả các nút "Sửa"

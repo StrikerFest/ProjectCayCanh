@@ -14,7 +14,7 @@ class HomeController extends Controller
     // registerCustomer
     public function registerCustomer(Request $request)
     {
-       
+
         // validate
         $request->validate([
             'name' => 'required',
@@ -57,7 +57,7 @@ class HomeController extends Controller
        // get  6 product latest
         $productLastest = product::orderBy('id','desc')->take(6)->get();
        // get 4 product latest
-        $productLastest2 = product::orderBy('id','desc')->take(4)->get(); 
+        $productLastest2 = product::orderBy('id','desc')->take(4)->get();
         return view('customer.home',['productLastest'=>$productLastest],['productLastest2'=>$productLastest2]);
     }
     // single product
@@ -103,7 +103,7 @@ class HomeController extends Controller
     // order
     public function order(Request $request)
     {
-       
+
         if (session()->has('customer')) {
             $customer = session()->get('customer');
             $request->validate([
@@ -228,13 +228,14 @@ class HomeController extends Controller
         // get id customer from session
         $customer = session()->get('customer');
         $customer_id = $customer->id;
-        // select order of customer using order_details by customers 
+        // select order of customer using order_details by customers
         $order = DB::table('orders')
+            ->select('orders.id')
             ->leftJoin('orders_details', 'orders_details.id', '=', 'orders.id')
             ->where('orders.customer_id', '=', $customer_id)
             ->groupBy('orders.id')
             ->get();
-        dd($order);
-       return view('customer.myacount',['order'=>$order]);
+        // dd($order);
+       return view('customer.myacount',['orders'=>$order]);
     }
 }

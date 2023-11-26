@@ -2,9 +2,9 @@
 @section('content')
 
 
-    
-        
-     
+
+
+
         <div class="page-wrapper">
             <div class="page-content">
                 <!--breadcrumb-->
@@ -40,7 +40,7 @@
                             @csrf
                             <label for="" class="form-label">Tên Loại Sản Phẩm</label>
                             <input class="form-control form-control-lg mb-3" type="text" placeholder="Nhập Tên Sản Phẩm"
-                                aria-label=".form-control-lg example" name="name">
+                                aria-label=".form-control-lg example" @required(true) name="name">
                             <button type="submit" class="btn btn-secondary px-5">Thêm</button>
                         </form>
 
@@ -89,12 +89,12 @@
                 </div>
             </div>
         </div>
-   
 
 
 
 
-   
+
+
 
     <script>
         const editButtons = document.querySelectorAll('.edit-btn');

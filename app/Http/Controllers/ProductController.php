@@ -9,26 +9,28 @@ use Illuminate\View\View;
 use Illuminate\Pagination\CursorPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
+
 class ProductController extends Controller
 {
-    // view 
+    // view
     public function index()
     {
         $product = product::paginate(8);
         $productCategory = product_catergory::all();
         return view('admin.product', compact('product','productCategory'));
     }
+
     // add product category
     public function addProduct()
     {
         $productCategory = product_catergory::all();
         return view('admin.addNewProduct' , compact('productCategory'));
     }
+
     // add new product
     public function addNewProduct(Request $request)
     {
-       
-        $request ->validate([
+        $request->validate([
             'id_category' => 'integer',
             'name' => 'required|string',
             'quantity'=>'required|int',
@@ -37,7 +39,7 @@ class ProductController extends Controller
             'export_price'=>'required|string',
             'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
            ]);
-          
+
         if($request->hasFile('image')){
             $completeFilename = $request -> file('image') ->getClientOriginalName();
             $filenameonly = pathinfo($completeFilename, PATHINFO_FILENAME);
@@ -45,7 +47,7 @@ class ProductController extends Controller
             $comPic = str_replace(' ','_',$filenameonly ).'_'.time().'.'.$extension;
             $path = $request-> file('image') ->storeAs('public/images', $comPic);
            }
-          
+
         $data = Product::create([
             'id_category' => $request->id_category,
             'name' => $request->name,
@@ -56,7 +58,7 @@ class ProductController extends Controller
             'image' => $comPic ,
            ]);
               return redirect()->back()->with('success','Product added successfully');
-        
+
     }
     // update quantity = 0
     public function deleteProduct($id)
@@ -69,16 +71,16 @@ class ProductController extends Controller
     // edit product by id from request
     public function editProduct(Request $request, $id)
     {
-       
+
         // dd($request->all());
         $found = Product::find($id);
         if(!$found){
           return response()->json(['message'=>'Product not found'],404);
         }
-        
+
       //  $input = $request->all();
       //  dd($input['name']);
-      
+
     //    $validator = Validator::make($request->all(), [
     //     'id_category' => 'integer',
     //       'name' => 'required|string',
@@ -113,7 +115,7 @@ class ProductController extends Controller
         ]);
         return redirect()->back()->with('success','Product updated successfully');
     }
-       
+
 
 
 
@@ -124,5 +126,5 @@ class ProductController extends Controller
         return view('admin.editProduct', compact('product'));
     }
 
-    
+
 }
